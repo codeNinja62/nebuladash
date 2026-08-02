@@ -1,0 +1,2153 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>NEBULADASH — Executive Intelligence Platform</title>
+  <meta name="theme-color" content="#070913" />
+  
+  <!-- INLINE SVG FAVICON (Self-Contained Isometric Brand Emblem) -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2338BDF8'/%3E%3Cstop offset='100%25' stop-color='%236366F1'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3Cpath d='M16 6L6 11l10 5 10-5-10-5zM6 21l10 5 10-5M6 16l10 5 10-5' fill='none' stroke='%23FFF' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2338BDF8'/%3E%3Cstop offset='100%25' stop-color='%236366F1'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3Cpath d='M16 6L6 11l10 5 10-5-10-5zM6 21l10 5 10-5M6 16l10 5 10-5' fill='none' stroke='%23FFF' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* =========================================================================
+       1. SEMANTIC TOKEN SYSTEM & UNIVERSAL INTERPOLATION
+       ========================================================================= */
+    :root {
+      --bg-color: #070913;
+      --glass-surface: rgba(16, 20, 38, 0.68);
+      --glass-surface-hover: rgba(22, 28, 52, 0.82);
+      --glass-border: rgba(255, 255, 255, 0.08);
+      --glass-border-top: rgba(255, 255, 255, 0.22);
+      
+      --aside-bg: rgba(10, 13, 26, 0.65);
+      --input-bg: rgba(16, 20, 38, 0.65);
+      --input-focus-bg: rgba(16, 20, 38, 0.95);
+      --card-inner-bg: rgba(255, 255, 255, 0.03);
+      --toast-bg: rgba(16, 20, 38, 0.92);
+      --table-row-hover: rgba(255, 255, 255, 0.04);
+      --table-border: rgba(255, 255, 255, 0.06);
+
+      --text-main: #F8FAFC;
+      --text-muted: #94A3B8;
+      --text-subtle: #64748B;
+      --brand-title: linear-gradient(180deg, #FFFFFF 0%, #94A3B8 100%);
+      
+      --accent-cyan: #38BDF8;
+      --accent-indigo: #6366F1;
+      --accent-emerald: #10B981;
+      --accent-rose: #F43F5E;
+      --accent-amber: #F59E0B;
+      
+      --gradient-brand: linear-gradient(135deg, #38BDF8 0%, #6366F1 100%);
+      --gradient-btn: linear-gradient(135deg, #0EA5E9 0%, #4F46E5 100%);
+      --shadow-surface: 0 24px 48px -12px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      --shadow-btn: 0 8px 20px -4px rgba(14, 165, 233, 0.4);
+      --shadow-btn-hover: 0 12px 28px -4px rgba(14, 165, 233, 0.65);
+      
+      --radius-xl: 20px;
+      --radius-lg: 14px;
+      --radius-md: 10px;
+      --radius-sm: 6px;
+      
+      --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+      --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    [data-theme="light"] {
+      --bg-color: #F8FAFC;
+      --glass-surface: rgba(255, 255, 255, 0.78);
+      --glass-surface-hover: rgba(255, 255, 255, 0.92);
+      --glass-border: rgba(15, 23, 42, 0.08);
+      --glass-border-top: rgba(255, 255, 255, 0.95);
+      
+      --aside-bg: rgba(255, 255, 255, 0.75);
+      --input-bg: rgba(255, 255, 255, 0.85);
+      --input-focus-bg: #FFFFFF;
+      --card-inner-bg: rgba(15, 23, 42, 0.035);
+      --toast-bg: rgba(255, 255, 255, 0.95);
+      --table-row-hover: rgba(15, 23, 42, 0.04);
+      --table-border: rgba(15, 23, 42, 0.07);
+
+      --text-main: #0F172A;
+      --text-muted: #334155;
+      --text-subtle: #475569;
+      --brand-title: linear-gradient(180deg, #0F172A 0%, #475569 100%);
+      
+      --shadow-surface: 0 20px 40px -12px rgba(15, 23, 42, 0.06), 0 4px 12px -2px rgba(15, 23, 42, 0.03), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+      --shadow-btn: 0 8px 20px -4px rgba(14, 165, 233, 0.3);
+      --shadow-btn-hover: 0 12px 28px -4px rgba(14, 165, 233, 0.5);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', -apple-system, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      transition:
+        background-color 0.4s var(--ease-smooth),
+        border-color 0.4s var(--ease-smooth),
+        box-shadow 0.4s var(--ease-smooth),
+        color 0.25s ease;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      overflow-x: hidden;
+      selection-background-color: var(--accent-cyan);
+    }
+
+    #ambient-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .glass-card {
+      background: var(--glass-surface);
+      backdrop-filter: blur(28px) saturate(180%);
+      -webkit-backdrop-filter: blur(28px) saturate(180%);
+      border: 1px solid var(--glass-border);
+      border-top: 1px solid var(--glass-border-top);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-surface);
+      padding: 24px;
+      transition:
+        transform 0.35s var(--ease-spring),
+        background-color 0.4s var(--ease-smooth),
+        border-color 0.4s var(--ease-smooth),
+        box-shadow 0.4s var(--ease-smooth);
+    }
+
+    .glass-card:hover {
+      border-color: rgba(56, 189, 248, 0.3);
+      box-shadow: var(--shadow-surface), 0 0 24px -6px rgba(56, 189, 248, 0.12);
+    }
+
+    /* =========================================================================
+       2. RESPONSIVE SIDEBAR NAVIGATION
+       ========================================================================= */
+    .sidebar-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(7, 9, 19, 0.65);
+      backdrop-filter: blur(8px);
+      z-index: 250;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s var(--ease-smooth);
+    }
+
+    aside {
+      position: sticky;
+      top: 0;
+      z-index: 260;
+      width: 270px;
+      min-width: 270px;
+      height: 100vh;
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-right: 1px solid var(--glass-border);
+      background: var(--aside-bg);
+      backdrop-filter: blur(32px);
+      -webkit-backdrop-filter: blur(32px);
+      transition: transform 0.35s var(--ease-spring), background-color 0.35s ease;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 4px 8px;
+      margin-bottom: 32px;
+    }
+
+    .brand-logo {
+      width: 34px;
+      height: 34px;
+      border-radius: 9px;
+      background: var(--gradient-brand);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 20px rgba(56, 189, 248, 0.35);
+      flex-shrink: 0;
+    }
+
+    .brand-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1.18rem;
+      letter-spacing: -0.02em;
+      background: var(--brand-title);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      border-radius: var(--radius-lg);
+      color: var(--text-muted);
+      font-weight: 500;
+      font-size: 0.92rem;
+      cursor: pointer;
+      user-select: none;
+      min-height: 44px;
+      transition:
+        transform 0.25s var(--ease-spring),
+        color 0.25s ease,
+        background-color 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+    }
+
+    .nav-item:hover {
+      color: var(--text-main);
+      background: var(--card-inner-bg);
+      transform: translateX(4px);
+    }
+
+    .nav-item.active {
+      color: var(--text-main);
+      font-weight: 600;
+      background: var(--card-inner-bg);
+      border: 1px solid var(--glass-border-top);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+      transform: translateX(2px);
+    }
+
+    .nav-item svg {
+      width: 18px;
+      height: 18px;
+      stroke-width: 2;
+      flex-shrink: 0;
+    }
+
+    main {
+      position: relative;
+      z-index: 10;
+      flex: 1;
+      padding: 24px 32px;
+      max-width: 1640px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      width: 100%;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      min-height: 48px;
+      flex-wrap: wrap;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+      min-width: 240px;
+      max-width: 500px;
+    }
+
+    .btn-hamburger {
+      display: none;
+      width: 42px;
+      height: 42px;
+      border-radius: var(--radius-md);
+      background: var(--card-inner-bg);
+      border: 1px solid var(--glass-border);
+      color: var(--text-main);
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .search-container {
+      position: relative;
+      width: 100%;
+    }
+
+    .search-input {
+      width: 100%;
+      height: 42px;
+      padding: 0 16px 0 42px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--glass-border);
+      border-top: 1px solid var(--glass-border-top);
+      background: var(--input-bg);
+      color: var(--text-main);
+      font-size: 0.88rem;
+      outline: none;
+      transition:
+        border-color 0.3s ease,
+        box-shadow 0.3s var(--ease-smooth),
+        background-color 0.3s ease;
+    }
+
+    .search-input:focus {
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
+      background: var(--input-focus-bg);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-subtle);
+      pointer-events: none;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .copilot-trigger {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      height: 40px;
+      padding: 0 16px;
+      border-radius: 99px;
+      background: rgba(99, 102, 241, 0.12);
+      border: 1px solid rgba(99, 102, 241, 0.35);
+      color: #818CF8;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.25s var(--ease-spring);
+    }
+
+    .copilot-trigger:hover {
+      background: rgba(99, 102, 241, 0.22);
+      border-color: rgba(99, 102, 241, 0.6);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 20px -4px rgba(99, 102, 241, 0.35);
+    }
+
+    /* =========================================================================
+       3. FLUID BUTTONS & SPRING TOGGLES
+       ========================================================================= */
+    .btn {
+      height: 40px;
+      padding: 0 18px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--glass-border);
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      user-select: none;
+      white-space: nowrap;
+      min-height: 40px;
+      transition:
+        transform 0.2s var(--ease-spring),
+        box-shadow 0.25s var(--ease-smooth),
+        background-color 0.25s ease,
+        border-color 0.25s ease,
+        color 0.25s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn:active {
+      transform: scale(0.96) translateY(0);
+    }
+
+    .btn-primary {
+      background: var(--gradient-btn);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      color: #FFFFFF;
+      box-shadow: var(--shadow-btn);
+    }
+
+    .btn-primary:hover {
+      box-shadow: var(--shadow-btn-hover);
+      filter: brightness(1.08);
+    }
+
+    .btn-ghost {
+      background: var(--card-inner-bg);
+      color: var(--text-main);
+      border-color: var(--glass-border);
+    }
+
+    .btn-ghost:hover {
+      border-color: rgba(56, 189, 248, 0.4);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .btn-icon {
+      width: 38px;
+      height: 38px;
+      padding: 0;
+      border-radius: var(--radius-md);
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition:
+        transform 0.2s var(--ease-spring),
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease;
+    }
+
+    .btn-icon:hover {
+      background: var(--card-inner-bg);
+      border-color: var(--glass-border);
+      color: var(--text-main);
+      transform: scale(1.08);
+    }
+
+    .switch-toggle {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .switch-input {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+      pointer-events: none;
+    }
+
+    .switch-track {
+      width: 54px;
+      height: 30px;
+      border-radius: 99px;
+      background: rgba(100, 116, 139, 0.25);
+      border: 1px solid var(--glass-border);
+      padding: 3px;
+      display: flex;
+      align-items: center;
+      transition:
+        background-color 0.35s var(--ease-smooth),
+        border-color 0.35s var(--ease-smooth),
+        box-shadow 0.35s var(--ease-smooth) !important;
+    }
+
+    .switch-input:checked + .switch-track {
+      background: var(--gradient-brand);
+      border-color: rgba(255, 255, 255, 0.35);
+      box-shadow: 0 0 18px rgba(56, 189, 248, 0.4);
+    }
+
+    .switch-thumb {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+      transform: translateX(0);
+      transition:
+        transform 0.35s var(--ease-spring),
+        background-color 0.3s ease !important;
+    }
+
+    .switch-input:checked + .switch-track .switch-thumb {
+      transform: translateX(24px);
+    }
+
+    /* Tab View System */
+    .view-section {
+      display: none;
+      flex-direction: column;
+      gap: 24px;
+      animation: fadeInView 0.4s var(--ease-smooth) forwards;
+    }
+
+    .view-section.active-view {
+      display: flex;
+    }
+
+    @keyframes fadeInView {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* =========================================================================
+       4. FLUID 12-COLUMN BENTO GRID SYSTEM
+       ========================================================================= */
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 24px;
+    }
+
+    .col-8 { grid-column: span 8; }
+    .col-4 { grid-column: span 4; }
+    .col-6 { grid-column: span 6; }
+    .col-12 { grid-column: span 12; }
+
+    @media (max-width: 1023px) {
+      .btn-hamburger { display: inline-flex; }
+      
+      aside {
+        position: fixed;
+        left: -300px;
+        top: 0;
+        bottom: 0;
+        width: 280px;
+        box-shadow: 20px 0 50px rgba(0, 0, 0, 0.5);
+      }
+      
+      .sidebar-overlay.open { opacity: 1; pointer-events: all; }
+      aside.open { transform: translateX(300px); }
+      
+      main { padding: 20px; }
+      .bento-grid { gap: 18px; }
+      
+      .col-8, .col-6 { grid-column: span 12; }
+      .col-4 { grid-column: span 12; }
+    }
+
+    @media (max-width: 639px) {
+      main { padding: 14px; gap: 16px; }
+      .bento-grid { gap: 14px; }
+      
+      header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+      }
+      
+      .header-left {
+        max-width: 100%;
+        width: 100%;
+      }
+      
+      .header-actions {
+        width: 100%;
+        justify-content: space-between;
+      }
+      
+      .copilot-trigger, .btn-primary {
+        flex: 1;
+        justify-content: center;
+        font-size: 0.8rem;
+        padding: 0 12px;
+      }
+      
+      .glass-card { padding: 18px 14px; }
+      .card-top { flex-direction: column; gap: 8px; }
+      
+      .copilot-drawer, .modal-box {
+        width: 100vw !important;
+        max-width: 100vw !important;
+        right: -100vw;
+        top: 0 !important;
+        bottom: 0 !important;
+        border-radius: 0 !important;
+        max-height: 100vh !important;
+      }
+      
+      .drawer-backdrop.open .copilot-drawer {
+        right: 0 !important;
+      }
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 20px;
+    }
+
+    .card-title-group h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1rem, 1.8vw, 1.12rem);
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin-bottom: 4px;
+      color: var(--text-main);
+    }
+
+    .card-title-group span {
+      font-size: 0.8rem;
+      color: var(--text-subtle);
+    }
+
+    .metric-value {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2.2rem, 5vw, 2.75rem);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      margin: 12px 0 8px 0;
+      font-variant-numeric: tabular-nums;
+      color: var(--text-main);
+    }
+
+    .badge-trend {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 10px;
+      border-radius: 99px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      background: rgba(56, 189, 248, 0.12);
+      color: var(--accent-cyan);
+      border: 1px solid rgba(56, 189, 248, 0.28);
+      white-space: nowrap;
+    }
+
+    /* Touch-Optimized Tables */
+    .table-wrapper {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.88rem;
+    }
+
+    th {
+      padding: 12px 14px;
+      font-weight: 600;
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-subtle);
+      border-bottom: 1px solid var(--table-border);
+      cursor: pointer;
+      user-select: none;
+      white-space: nowrap;
+    }
+
+    th:hover { color: var(--text-main); }
+
+    td {
+      padding: 14px;
+      border-bottom: 1px solid var(--table-border);
+      color: var(--text-muted);
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+
+    tr:hover td {
+      background: var(--table-row-hover);
+      color: var(--text-main);
+    }
+
+    .insights-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-height: 310px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .insight-card {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 16px;
+      border-radius: var(--radius-lg);
+      background: var(--card-inner-bg);
+      border: 1px solid var(--glass-border);
+      border-left: 4px solid var(--accent-indigo);
+      transition:
+        transform 0.25s var(--ease-spring),
+        opacity 0.25s ease,
+        background-color 0.3s ease,
+        border-color 0.3s ease;
+    }
+
+    .insight-card.positive { border-left-color: var(--accent-emerald); }
+    .insight-card.warning { border-left-color: var(--accent-amber); }
+
+    .insight-text {
+      font-size: 0.85rem;
+      line-height: 1.45;
+      color: var(--text-main);
+    }
+
+    .insight-dismiss {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-subtle);
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 6px 10px;
+      border-radius: 4px;
+      transition: color 0.15s ease, background-color 0.15s ease;
+      flex-shrink: 0;
+    }
+
+    .insight-dismiss:hover {
+      color: var(--text-main);
+      background: var(--card-inner-bg);
+    }
+
+    /* Empty State Styling */
+    .empty-state-row {
+      text-align: center;
+      padding: 32px 16px;
+      color: var(--text-subtle);
+      font-size: 0.88rem;
+    }
+
+    /* Modals & Backdrop */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(7, 9, 19, 0.72);
+      backdrop-filter: blur(14px);
+      z-index: 350;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      padding: 16px;
+      transition: opacity 0.35s var(--ease-smooth);
+    }
+
+    [data-theme="light"] .modal-backdrop {
+      background: rgba(15, 23, 42, 0.55);
+    }
+
+    .modal-backdrop.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal-box {
+      width: 100%;
+      max-width: 480px;
+      max-height: 90vh;
+      overflow-y: auto;
+      transform: scale(0.93) translateY(10px);
+      transition: transform 0.35s var(--ease-spring), opacity 0.35s ease;
+    }
+
+    .modal-backdrop.open .modal-box {
+      transform: scale(1) translateY(0);
+    }
+
+    /* =========================================================================
+       5. AI COPILOT SLIDE-OVER DRAWER
+       ========================================================================= */
+    .drawer-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(7, 9, 19, 0.65);
+      backdrop-filter: blur(8px);
+      z-index: 300;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s var(--ease-smooth);
+    }
+
+    .drawer-backdrop.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .copilot-drawer {
+      position: fixed;
+      top: 16px;
+      right: -480px;
+      bottom: 16px;
+      width: 440px;
+      max-width: calc(100vw - 32px);
+      z-index: 301;
+      display: flex;
+      flex-direction: column;
+      border-radius: var(--radius-xl);
+      background: var(--glass-surface);
+      backdrop-filter: blur(36px) saturate(200%);
+      border: 1px solid var(--glass-border-top);
+      box-shadow: -16px 0 48px rgba(0, 0, 0, 0.45);
+      transition: right 0.4s var(--ease-spring);
+    }
+
+    .drawer-backdrop.open .copilot-drawer {
+      right: 16px;
+    }
+
+    .copilot-header {
+      padding: 18px 22px;
+      border-bottom: 1px solid var(--glass-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .copilot-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .chat-bubble {
+      max-width: 88%;
+      padding: 12px 16px;
+      border-radius: var(--radius-lg);
+      font-size: 0.86rem;
+      line-height: 1.5;
+      animation: fadeInView 0.25s var(--ease-smooth);
+    }
+
+    .chat-user {
+      align-self: flex-end;
+      background: var(--gradient-btn);
+      color: #FFFFFF;
+      border-bottom-right-radius: 4px;
+      box-shadow: 0 4px 12px rgba(14, 165, 233, 0.25);
+    }
+
+    .chat-ai {
+      align-self: flex-start;
+      background: var(--card-inner-bg);
+      border: 1px solid var(--glass-border);
+      color: var(--text-main);
+      border-bottom-left-radius: 4px;
+    }
+
+    .copilot-footer-container {
+      border-top: 1px solid var(--glass-border);
+      padding: 14px 18px 18px 18px;
+      background: rgba(0, 0, 0, 0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .copilot-suggestions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .prompt-chip {
+      padding: 6px 12px;
+      border-radius: 99px;
+      background: var(--card-inner-bg);
+      border: 1px solid var(--glass-border);
+      font-size: 0.76rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.2s var(--ease-spring);
+    }
+
+    .prompt-chip:hover {
+      background: rgba(56, 189, 248, 0.12);
+      border-color: rgba(56, 189, 248, 0.4);
+      color: var(--accent-cyan);
+      transform: translateY(-1px);
+    }
+
+    .copilot-footer {
+      display: flex;
+      gap: 10px;
+    }
+
+    .chat-input {
+      flex: 1;
+      height: 42px;
+      padding: 0 16px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--glass-border);
+      border-top: 1px solid var(--glass-border-top);
+      background: var(--input-bg);
+      color: var(--text-main);
+      font-size: 0.88rem;
+      outline: none;
+    }
+
+    .chat-input:focus {
+      border-color: var(--accent-cyan);
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+
+    .form-input, .form-select {
+      width: 100%;
+      height: 42px;
+      padding: 0 14px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--glass-border);
+      border-top: 1px solid var(--glass-border-top);
+      background: var(--input-bg);
+      color: var(--text-main);
+      font-size: 0.88rem;
+      outline: none;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+    }
+
+    .form-input:focus, .form-select:focus {
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
+      background: var(--input-focus-bg);
+    }
+
+    #toast-stack {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 400;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .toast-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 18px;
+      border-radius: var(--radius-lg);
+      background: var(--toast-bg);
+      backdrop-filter: blur(24px);
+      border: 1px solid var(--glass-border-top);
+      box-shadow: var(--shadow-surface);
+      color: var(--text-main);
+      animation: slideInToast 0.4s var(--ease-spring) forwards;
+    }
+
+    @keyframes slideInToast {
+      from { opacity: 0; transform: translateX(110%); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .role-tag {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: var(--card-inner-bg);
+      border: 1px solid var(--glass-border);
+    }
+
+    .role-Admin { color: var(--accent-cyan); border-color: rgba(56, 189, 248, 0.3); }
+    .role-Editor { color: var(--accent-indigo); border-color: rgba(99, 102, 241, 0.3); }
+    .role-Viewer { color: var(--text-muted); }
+  </style>
+</head>
+<body>
+  <canvas id="ambient-canvas"></canvas>
+
+  <!-- Mobile Off-Canvas Backdrop -->
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+  <!-- Responsive Navigation Sidebar / Sheet -->
+  <aside id="main-sidebar">
+    <div>
+      <div class="brand-group">
+        <div class="brand-logo">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="2.5">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+          </svg>
+        </div>
+        <span class="brand-title">NEBULADASH</span>
+      </div>
+
+      <ul class="nav-list">
+        <li class="nav-item active" data-view="dashboard">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <rect x="3" y="3" width="7" height="9" rx="1"></rect>
+            <rect x="14" y="3" width="7" height="5" rx="1"></rect>
+            <rect x="14" y="12" width="7" height="9" rx="1"></rect>
+            <rect x="3" y="16" width="7" height="5" rx="1"></rect>
+          </svg>
+          <span>Dashboard</span>
+        </li>
+        <li class="nav-item" data-view="users">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+          </svg>
+          <span>User Directory</span>
+        </li>
+        <li class="nav-item" data-view="activity">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+          </svg>
+          <span>Activity Log</span>
+        </li>
+      </ul>
+    </div>
+
+    <div>
+      <button class="btn btn-ghost" style="width: 100%; justify-content: flex-start;" id="btn-open-settings">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="3"></circle>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1 0-2.83 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06-.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+        </svg>
+        <span>Preferences</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main View Area -->
+  <main>
+    <!-- Responsive Action Header -->
+    <header>
+      <div class="header-left">
+        <button class="btn-hamburger" id="btn-toggle-sidebar" aria-label="Toggle Navigation">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+
+        <div class="search-container">
+          <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="text" id="input-global-search" class="search-input" placeholder="Search accounts, telemetry alerts, or audit logs..." />
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <button class="copilot-trigger" id="btn-open-copilot">
+          <span>✦ AI Copilot (⌘K)</span>
+        </button>
+        <button class="btn btn-primary" id="btn-trigger-add-user">+ Add Identity</button>
+      </div>
+    </header>
+
+    <!-- VIEW 1: DASHBOARD -->
+    <section id="view-dashboard" class="view-section active-view">
+      <div class="bento-grid">
+        <div class="glass-card col-8">
+          <div class="card-top">
+            <div class="card-title-group">
+              <h3>Real-Time Revenue Velocity</h3>
+              <span>30-Day Catmull-Rom spline projection based on transaction flow</span>
+            </div>
+            <span class="badge-trend">+24.8% ARR</span>
+          </div>
+          <canvas id="chart-revenue" style="width: 100%; height: 260px;"></canvas>
+        </div>
+
+        <div class="glass-card col-4" style="display: flex; flex-direction: column; justify-content: space-between;">
+          <div class="card-top">
+            <div class="card-title-group">
+              <h3>Active Node Sessions</h3>
+              <span>Distributed edge clients</span>
+            </div>
+            <span class="badge-trend" style="background: rgba(16,185,129,0.12); color: #10B981; border-color: rgba(16,185,129,0.28);">STABLE</span>
+          </div>
+          <div>
+            <div class="metric-value" id="kpi-users">218</div>
+            <p style="font-size: 0.82rem; color: var(--text-muted);">Simulated socket traffic across 14 global regions</p>
+          </div>
+          <canvas id="chart-users-mini" style="width: 100%; height: 65px; margin-top: 16px;"></canvas>
+        </div>
+
+        <div class="glass-card col-6">
+          <div class="card-top">
+            <div class="card-title-group">
+              <h3 style="display: flex; align-items: center; gap: 8px;">
+                <span style="color: var(--accent-cyan);">✦</span> Autonomous AI Telemetry
+              </h3>
+              <span>Pattern anomalies generated by edge inference</span>
+            </div>
+            <button class="btn btn-ghost" style="height: 30px; font-size: 0.75rem;" onclick="Simulation.triggerInsight()">+ Test Alert</button>
+          </div>
+          <div class="insights-container" id="list-insights"></div>
+        </div>
+
+        <div class="glass-card col-6">
+          <div class="card-top">
+            <div class="card-title-group">
+              <h3>Live Transaction Feed</h3>
+              <span>Streamed directly from IndexedDB ledger</span>
+            </div>
+            <span style="font-size: 0.8rem; font-family: 'JetBrains Mono', monospace; color: var(--accent-cyan);" id="label-tx-count">0 TXS</span>
+          </div>
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Account</th>
+                  <th>Amount</th>
+                  <th>Type</th>
+                  <th>Timestamp</th>
+                </tr>
+              </thead>
+              <tbody id="tbody-transactions-preview"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 2: USER DIRECTORY -->
+    <section id="view-users" class="view-section">
+      <div class="glass-card">
+        <div class="card-top" style="align-items: center;">
+          <div class="card-title-group">
+            <h3>Identity & Access Directory</h3>
+            <span>Full CRUD management stored locally inside IndexedDB</span>
+          </div>
+          <button class="btn btn-primary" id="btn-trigger-add-user-dir">+ New Identity</button>
+        </div>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th onclick="UI.sortUsers('name')">Identity Name ↕</th>
+                <th onclick="UI.sortUsers('email')">Email Address ↕</th>
+                <th onclick="UI.sortUsers('role')">Role Level ↕</th>
+                <th onclick="UI.sortUsers('status')">Account Status ↕</th>
+                <th>Last Active</th>
+                <th style="text-align: right;">Management</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-users"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 3: ACTIVITY LOG -->
+    <section id="view-activity" class="view-section">
+      <div class="glass-card">
+        <div class="card-top">
+          <div class="card-title-group">
+            <h3>System Audit Stream</h3>
+            <span>Real-time transactional and administrative event history</span>
+          </div>
+          <button class="btn btn-ghost" style="height: 32px; font-size: 0.8rem;" onclick="UI.clearAuditLog()">Clear History</button>
+        </div>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Event Type</th>
+                <th>Event Description</th>
+                <th>Source</th>
+                <th>Logged At</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-audit"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- AI COPILOT DRAWER -->
+  <div class="drawer-backdrop" id="copilot-backdrop">
+    <div class="copilot-drawer" id="copilot-drawer">
+      <div class="copilot-header">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <div style="width: 10px; height: 10px; border-radius: 50%; background: var(--accent-cyan); box-shadow: 0 0 10px var(--accent-cyan);"></div>
+          <strong style="font-family: 'Space Grotesk', sans-serif;">Nebula Executive Copilot</strong>
+        </div>
+        <button class="btn-icon" id="btn-close-copilot">✕</button>
+      </div>
+
+      <div class="copilot-messages" id="copilot-messages">
+        <div class="chat-bubble chat-ai">
+          Hello! I am connected directly to your NEBULADASH telemetry stream. How can I assist with your metrics today?
+        </div>
+      </div>
+
+      <div class="copilot-footer-container">
+        <div class="copilot-suggestions">
+          <div class="prompt-chip" onclick="Copilot.ask('Summarize the current 30-day revenue velocity trajectory.')">📊 Revenue Trajectory</div>
+          <div class="prompt-chip" onclick="Copilot.ask('Analyze recent transaction amounts for potential spending anomalies.')">🔍 Audit Anomalies</div>
+          <div class="prompt-chip" onclick="Copilot.ask('Give me an executive summary of current active node sessions.')">⚡ Node Telemetry</div>
+        </div>
+
+        <div class="copilot-footer">
+          <input type="text" class="chat-input" id="input-copilot" placeholder="Ask anything about live metrics..." />
+          <button class="btn btn-primary" style="padding: 0 16px;" id="btn-send-copilot">Send</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- USER MODAL -->
+  <div class="modal-backdrop" id="modal-user">
+    <div class="glass-card modal-box">
+      <div class="card-top">
+        <div class="card-title-group">
+          <h3 id="modal-user-title">Create Identity Record</h3>
+          <span>Persists instantly to local object storage</span>
+        </div>
+        <button class="btn-icon" id="btn-close-user-modal">✕</button>
+      </div>
+      <form id="form-user">
+        <input type="hidden" id="input-user-id" />
+        <div class="form-group">
+          <label class="form-label">Full Name</label>
+          <input type="text" id="input-user-name" class="form-input" placeholder="e.g. Elena Rostova" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input type="email" id="input-user-email" class="form-input" placeholder="elena.r@nebula.io" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Access Role</label>
+          <select id="select-user-role" class="form-select">
+            <option value="Admin">Admin (Full Control)</option>
+            <option value="Editor">Editor (Read / Write)</option>
+            <option value="Viewer">Viewer (Read Only)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Account Status</label>
+          <select id="select-user-status" class="form-select">
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
+          </select>
+        </div>
+        <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 24px;">
+          <button type="button" class="btn btn-ghost" id="btn-cancel-user-modal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Identity</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- SETTINGS MODAL -->
+  <div class="modal-backdrop" id="modal-settings">
+    <div class="glass-card modal-box">
+      <div class="card-top">
+        <div class="card-title-group">
+          <h3>System Preferences</h3>
+          <span>Fluid interface controls and simulation overrides</span>
+        </div>
+        <button class="btn-icon" id="btn-close-settings-modal">✕</button>
+      </div>
+
+      <div class="form-group" style="padding-bottom: 14px; border-bottom: 1px solid var(--glass-border);">
+        <label class="form-label">Gemini API Key (Client-Side Storage)</label>
+        <div style="display: flex; gap: 8px;">
+          <input type="password" id="input-api-key" class="form-input" placeholder="AIzaSy..." />
+          <button class="btn btn-primary" style="padding: 0 16px;" id="btn-save-key">Save</button>
+        </div>
+        <span style="font-size: 0.75rem; color: var(--text-subtle); display: block; margin-top: 6px;">
+          Stored locally in IndexedDB. Never transmitted to third-party tracking servers.
+        </span>
+      </div>
+
+      <div class="form-group" style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--glass-border);">
+        <div>
+          <label class="form-label" style="margin-bottom: 2px;">Interface Palette</label>
+          <span style="font-size: 0.8rem; color: var(--text-subtle);">Switch between Obsidian Dark and Frosted Quartz</span>
+        </div>
+        <label class="switch-toggle" title="Toggle UI Mode">
+          <input type="checkbox" class="switch-input" id="switch-theme-toggle" />
+          <div class="switch-track">
+            <div class="switch-thumb"></div>
+          </div>
+        </label>
+      </div>
+
+      <div class="form-group" style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--glass-border);">
+        <div>
+          <label class="form-label" style="margin-bottom: 2px;">Simulation Engine</label>
+          <span style="font-size: 0.8rem; color: var(--text-subtle);" id="label-sim-status">Engine active — Streaming fake telemetry</span>
+        </div>
+        <label class="switch-toggle" title="Toggle Live Simulation">
+          <input type="checkbox" class="switch-input" id="switch-sim-toggle" checked />
+          <div class="switch-track">
+            <div class="switch-thumb"></div>
+          </div>
+        </label>
+      </div>
+
+      <div class="form-group" style="margin-top: 14px;">
+        <label class="form-label">Telemetry Refresh Frequency</label>
+        <input type="range" id="slider-refresh-rate" min="1" max="10" value="3" style="width: 100%; margin: 8px 0;" />
+        <div style="display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--text-subtle);">
+          <span>1 sec (Aggressive)</span>
+          <span id="label-refresh-rate">Every 3 seconds</span>
+          <span>10 sec (Relaxed)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST CONTAINER -->
+  <div id="toast-stack"></div>
+
+  <script>
+    /* =========================================================================
+       1. AMBIENT AURORA CANVAS RENDERER (Theme & Resize Aware)
+       ========================================================================= */
+    const Background = (() => {
+      const canvas = document.getElementById('ambient-canvas');
+      const ctx = canvas.getContext('2d');
+      let width, height;
+      const orbs = [];
+
+      function init() {
+        resize();
+        window.addEventListener('resize', resize);
+        for (let i = 0; i < 6; i++) {
+          orbs.push({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            vx: (Math.random() - 0.5) * 0.4,
+            vy: (Math.random() - 0.5) * 0.4,
+            radius: Math.random() * 250 + 180,
+            darkColor: i % 2 === 0 ? 'rgba(56, 189, 248, 0.08)' : 'rgba(99, 102, 241, 0.08)',
+            lightColor: i % 2 === 0 ? 'rgba(14, 165, 233, 0.06)' : 'rgba(79, 70, 229, 0.05)'
+          });
+        }
+        animate();
+      }
+
+      function resize() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+      }
+
+      function animate() {
+        ctx.clearRect(0, 0, width, height);
+        const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+        orbs.forEach(orb => {
+          orb.x += orb.vx;
+          orb.y += orb.vy;
+          if (orb.x - orb.radius > width) orb.x = -orb.radius;
+          if (orb.x + orb.radius < 0) orb.x = width + orb.radius;
+          if (orb.y - orb.radius > height) orb.y = -orb.radius;
+          if (orb.y + orb.radius < 0) orb.y = height + orb.radius;
+
+          const gradient = ctx.createRadialGradient(orb.x, orb.y, 0, orb.x, orb.y, orb.radius);
+          gradient.addColorStop(0, isLight ? orb.lightColor : orb.darkColor);
+          gradient.addColorStop(1, 'rgba(0,0,0,0)');
+          ctx.fillStyle = gradient;
+          ctx.beginPath();
+          ctx.arc(orb.x, orb.y, orb.radius, 0, Math.PI * 2);
+          ctx.fill();
+        });
+        requestAnimationFrame(animate);
+      }
+
+      return { init };
+    })();
+
+    /* =========================================================================
+       2. DATABASE LAYER (IndexedDB v1)
+       ========================================================================= */
+    const DB = (() => {
+      const DB_NAME = 'NebulaDashDB';
+      const DB_VERSION = 1;
+      let db = null;
+
+      function init() {
+        return new Promise((resolve, reject) => {
+          const req = indexedDB.open(DB_NAME, DB_VERSION);
+          req.onupgradeneeded = (e) => {
+            db = e.target.result;
+            if (!db.objectStoreNames.contains('users')) db.createObjectStore('users', { keyPath: 'id', autoIncrement: true });
+            if (!db.objectStoreNames.contains('transactions')) db.createObjectStore('transactions', { keyPath: 'id', autoIncrement: true });
+            if (!db.objectStoreNames.contains('insights')) db.createObjectStore('insights', { keyPath: 'id', autoIncrement: true });
+            if (!db.objectStoreNames.contains('settings')) db.createObjectStore('settings', { keyPath: 'key' });
+          };
+          req.onsuccess = async (e) => {
+            db = e.target.result;
+            await seedIfEmpty();
+            resolve(db);
+          };
+          req.onerror = (e) => reject(e);
+        });
+      }
+
+      async function seedIfEmpty() {
+        const users = await getAll('users');
+        if (users.length === 0) {
+          const sampleUsers = [
+            { name: "Aria Thorne", email: "aria.t@nebula.io", role: "Admin", status: "Active", lastLogin: new Date().toISOString() },
+            { name: "Marcus Vance", email: "m.vance@nebula.io", role: "Editor", status: "Active", lastLogin: new Date().toISOString() },
+            { name: "Elena Rostova", email: "elena.r@nebula.io", role: "Viewer", status: "Inactive", lastLogin: new Date().toISOString() }
+          ];
+          for (const u of sampleUsers) await add('users', u);
+
+          for (let i = 0; i < 10; i++) {
+            await add('transactions', {
+              userId: Math.floor(Math.random() * 3) + 1,
+              amount: parseFloat((Math.random() * 1250 + 60).toFixed(2)),
+              type: Math.random() > 0.25 ? 'credit' : 'debit',
+              description: `Cloud Node Subscription #${100 + i}`,
+              timestamp: new Date(Date.now() - i * 3600000).toISOString()
+            });
+          }
+
+          const sampleInsights = [
+            { message: "Weekly ARR expansion velocity increased by +14.2% across edge clusters.", severity: "positive", read: false },
+            { message: "Elevated latency detected in AP-South region; automated traffic rebalancing initiated.", severity: "warning", read: false }
+          ];
+          for (const ins of sampleInsights) await add('insights', ins);
+
+          await add('settings', { key: 'theme', value: 'dark' });
+          await add('settings', { key: 'refreshRate', value: 3 });
+          await add('settings', { key: 'simulationActive', value: true });
+        }
+      }
+
+      function getAll(storeName) {
+        return new Promise((resolve, reject) => {
+          const tx = db.transaction(storeName, 'readonly');
+          const req = tx.objectStore(storeName).getAll();
+          req.onsuccess = () => resolve(req.result);
+          req.onerror = () => reject(req.error);
+        });
+      }
+
+      function add(storeName, item) {
+        return new Promise((resolve, reject) => {
+          const tx = db.transaction(storeName, 'readwrite');
+          const req = tx.objectStore(storeName).add(item);
+          req.onsuccess = () => resolve(req.result);
+          req.onerror = () => reject(req.error);
+        });
+      }
+
+      function put(storeName, item) {
+        return new Promise((resolve, reject) => {
+          const tx = db.transaction(storeName, 'readwrite');
+          const req = tx.objectStore(storeName).put(item);
+          req.onsuccess = () => resolve(req.result);
+          req.onerror = () => reject(req.error);
+        });
+      }
+
+      function remove(storeName, id) {
+        return new Promise((resolve, reject) => {
+          const tx = db.transaction(storeName, 'readwrite');
+          const req = tx.objectStore(storeName).delete(Number(id));
+          req.onsuccess = () => resolve();
+          req.onerror = () => reject(req.error);
+        });
+      }
+
+      return { init, getAll, add, put, remove };
+    })();
+
+    /* =========================================================================
+       3. LIVE AI COPILOT ENGINE
+       ========================================================================= */
+    const Copilot = (() => {
+      async function ask(customPrompt = null) {
+        const inputEl = document.getElementById('input-copilot');
+        const promptText = customPrompt || inputEl.value.trim();
+        if (!promptText) return;
+
+        const settings = await DB.getAll('settings');
+        const keyRecord = settings.find(s => s.key === 'geminiKey');
+        if (!keyRecord || !keyRecord.value) {
+          appendMessage("ai", "⚠️ **API Key Required**: Please open **Preferences** in the sidebar and enter your Gemini API key to activate live reasoning.");
+          return;
+        }
+
+        appendMessage("user", promptText);
+        if (!customPrompt) inputEl.value = "";
+
+        const thinkingId = appendMessage("ai", "✦ *Analyzing telemetry...*");
+
+        const txs = await DB.getAll('transactions');
+        const recentTxs = txs.slice(-5).map(t => `${t.type.toUpperCase()}: $${t.amount}`).join(', ');
+        const activeCount = document.getElementById('kpi-users')?.innerText || "218";
+
+        const systemContext = `You are the executive AI copilot built into NEBULADASH. You are succinct, analytical, and professional. Current active node sessions: ${activeCount}. Recent transactions: ${recentTxs}. Give a direct, punchy analysis formatted with clean Markdown bullet points.`;
+
+        try {
+          const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${keyRecord.value}`;
+          const res = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              contents: [{ parts: [{ text: `${systemContext}\n\nUser Question: ${promptText}` }] }]
+            })
+          });
+
+          const data = await res.json();
+          const responseText = data?.candidates?.[0]?.content?.parts?.[0]?.text || "No analytical response generated.";
+          updateMessage(thinkingId, responseText);
+          UI.logEvent("COPILOT_INFERENCE", `Copilot query executed: "${promptText.slice(0, 24)}..."`);
+        } catch (error) {
+          updateMessage(thinkingId, `❌ **Connection Failed**: Unable to communicate with API. Verify your key in Preferences.`);
+        }
+      }
+
+      function appendMessage(sender, text) {
+        const container = document.getElementById('copilot-messages');
+        const id = 'msg-' + Math.random().toString(36).substr(2, 9);
+        const div = document.createElement('div');
+        div.id = id;
+        div.className = `chat-bubble ${sender === 'user' ? 'chat-user' : 'chat-ai'}`;
+        div.innerHTML = text;
+        container.appendChild(div);
+        container.scrollTop = container.scrollHeight;
+        return id;
+      }
+
+      function updateMessage(id, newText) {
+        const el = document.getElementById(id);
+        if (el) {
+          el.innerHTML = newText;
+          const container = document.getElementById('copilot-messages');
+          container.scrollTop = container.scrollHeight;
+        }
+      }
+
+      return { ask };
+    })();
+
+    /* =========================================================================
+       4. SENIOR CANVAS CHARTS (Catmull-Rom Spline & Responsive Resize)
+       ========================================================================= */
+    const Charts = (() => {
+      let revenuePoints = Array.from({ length: 28 }, (_, i) => 4500 + Math.sin(i * 0.45) * 900 + Math.random() * 400);
+
+      function getCatmullRomSpline(points) {
+        const coords = [];
+        for (let i = 0; i < points.length - 1; i++) {
+          const p0 = points[Math.max(i - 1, 0)];
+          const p1 = points[i];
+          const p2 = points[i + 1];
+          const p3 = points[Math.min(i + 2, points.length - 1)];
+
+          for (let t = 0; t < 1; t += 0.1) {
+            const t2 = t * t;
+            const t3 = t2 * t;
+            const x = 0.5 * ((2 * p1.x) + (-p0.x + p2.x) * t + (2 * p0.x - 5 * p1.x + 4 * p2.x - p3.x) * t2 + (-p0.x + 3 * p1.x - 3 * p2.x + p3.x) * t3);
+            const y = 0.5 * ((2 * p1.y) + (-p0.y + p2.y) * t + (2 * p0.y - 5 * p1.y + 4 * p2.y - p3.y) * t2 + (-p0.y + 3 * p1.y - 3 * p2.y + p3.y) * t3);
+            coords.push({ x, y });
+          }
+        }
+        coords.push(points[points.length - 1]);
+        return coords;
+      }
+
+      function renderRevenueChart() {
+        const canvas = document.getElementById('chart-revenue');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        const dpr = window.devicePixelRatio || 1;
+        const rect = canvas.getBoundingClientRect();
+        if (rect.width === 0 || rect.height === 0) return;
+        
+        canvas.width = rect.width * dpr;
+        canvas.height = rect.height * dpr;
+        ctx.scale(dpr, dpr);
+
+        const width = rect.width;
+        const height = rect.height;
+        ctx.clearRect(0, 0, width, height);
+        const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+
+        ctx.strokeStyle = isLight ? 'rgba(15, 23, 42, 0.06)' : 'rgba(255, 255, 255, 0.05)';
+        ctx.lineWidth = 1;
+        [0.25, 0.5, 0.75].forEach(ratio => {
+          ctx.beginPath();
+          ctx.moveTo(0, height * ratio);
+          ctx.lineTo(width, height * ratio);
+          ctx.stroke();
+        });
+
+        const max = Math.max(...revenuePoints) * 1.08;
+        const min = Math.min(...revenuePoints) * 0.92;
+        const stepX = width / (revenuePoints.length - 1);
+        const rawCoords = revenuePoints.map((val, i) => ({
+          x: i * stepX,
+          y: height - ((val - min) / (max - min)) * (height - 36) - 18
+        }));
+
+        const smoothCoords = getCatmullRomSpline(rawCoords);
+        const fillGrad = ctx.createLinearGradient(0, 0, 0, height);
+        fillGrad.addColorStop(0, 'rgba(56, 189, 248, 0.35)');
+        fillGrad.addColorStop(1, 'rgba(56, 189, 248, 0.0)');
+
+        ctx.beginPath();
+        ctx.moveTo(smoothCoords[0].x, height);
+        smoothCoords.forEach(p => ctx.lineTo(p.x, p.y));
+        ctx.lineTo(width, height);
+        ctx.closePath();
+        ctx.fillStyle = fillGrad;
+        ctx.fill();
+
+        ctx.beginPath();
+        smoothCoords.forEach((p, i) => {
+          if (i === 0) ctx.moveTo(p.x, p.y);
+          else ctx.lineTo(p.x, p.y);
+        });
+        ctx.strokeStyle = '#38BDF8';
+        ctx.lineWidth = 2.5;
+        ctx.stroke();
+      }
+
+      function renderMiniChart() {
+        const canvas = document.getElementById('chart-users-mini');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        const rect = canvas.getBoundingClientRect();
+        if (rect.width === 0 || rect.height === 0) return;
+        
+        canvas.width = rect.width;
+        canvas.height = rect.height;
+        ctx.clearRect(0, 0, rect.width, rect.height);
+        const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+        const bars = 16;
+        const barW = rect.width / bars - 4;
+        for (let i = 0; i < bars; i++) {
+          const h = (Math.sin(i + Date.now() * 0.003) * 0.35 + 0.65) * (rect.height - 8);
+          ctx.fillStyle = i === bars - 1 ? '#10B981' : (isLight ? 'rgba(15, 23, 42, 0.08)' : 'rgba(255, 255, 255, 0.12)');
+          ctx.fillRect(i * (barW + 4), rect.height - h, barW, h);
+        }
+      }
+
+      function pushRevenueValue() {
+        revenuePoints.shift();
+        const last = revenuePoints[revenuePoints.length - 1];
+        const next = last + (Math.random() - 0.47) * 280;
+        revenuePoints.push(Math.max(3000, next));
+        renderRevenueChart();
+      }
+
+      return { renderRevenueChart, renderMiniChart, pushRevenueValue };
+    })();
+
+    /* =========================================================================
+       5. UI ROUTING, UNIFIED GLOBAL SEARCH & INTERACTIVE POLISH
+       ========================================================================= */
+    const UI = (() => {
+      let currentUsers = [];
+      let sortAsc = true;
+      let currentSearchQuery = '';
+      let auditLogs = [
+        { type: "SYSTEM_BOOT", desc: "IndexedDB cluster synchronized", source: "Nebula Core", time: new Date().toLocaleTimeString() }
+      ];
+
+      function initNav() {
+        const navItems = document.querySelectorAll('.nav-item');
+        const views = document.querySelectorAll('.view-section');
+
+        navItems.forEach(item => {
+          item.addEventListener('click', () => {
+            navItems.forEach(i => i.classList.remove('active'));
+            views.forEach(v => v.classList.remove('active-view'));
+
+            item.classList.add('active');
+            const target = document.getElementById(`view-${item.dataset.view}`);
+            if (target) {
+              target.classList.add('active-view');
+              Charts.renderRevenueChart();
+              Charts.renderMiniChart();
+            }
+            closeMobileSidebar();
+          });
+        });
+      }
+
+      function closeMobileSidebar() {
+        const sidebar = document.getElementById('main-sidebar');
+        const overlay = document.getElementById('sidebar-overlay');
+        sidebar.classList.remove('open');
+        overlay.classList.remove('open');
+      }
+
+      async function refreshAll() {
+        await renderUsers(currentSearchQuery);
+        await renderTransactions(currentSearchQuery);
+        await renderInsights(currentSearchQuery);
+        renderAudit(currentSearchQuery);
+      }
+
+      function handleGlobalSearch(query) {
+        currentSearchQuery = query;
+        renderUsers(query);
+        renderTransactions(query);
+        renderInsights(query);
+        renderAudit(query);
+      }
+
+      async function renderUsers(query = currentSearchQuery) {
+        currentUsers = await DB.getAll('users');
+        const tbody = document.getElementById('tbody-users');
+        if (!tbody) return;
+        tbody.innerHTML = '';
+        
+        const filtered = currentUsers.filter(u =>
+          u.name.toLowerCase().includes(query.toLowerCase()) ||
+          u.email.toLowerCase().includes(query.toLowerCase()) ||
+          u.role.toLowerCase().includes(query.toLowerCase())
+        );
+
+        if (filtered.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="6" class="empty-state-row">No identity records found matching "${query}"</td></tr>`;
+          return;
+        }
+
+        filtered.forEach(u => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td style="font-weight: 600; color: var(--text-main);">${u.name}</td>
+            <td>${u.email}</td>
+            <td><span class="role-tag role-${u.role}">${u.role}</span></td>
+            <td><span style="color: ${u.status === 'Active' ? '#10B981' : 'var(--text-subtle)'};">● ${u.status}</span></td>
+            <td style="font-size: 0.8rem;">${new Date(u.lastLogin).toLocaleDateString()}</td>
+            <td style="text-align: right;">
+              <button class="btn-icon" onclick="UI.editUser(${u.id})" aria-label="Edit Identity">✎</button>
+              <button class="btn-icon" onclick="UI.deleteUser(${u.id})" aria-label="Delete Identity">🗑</button>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+      }
+
+      async function renderTransactions(query = currentSearchQuery) {
+        const txs = await DB.getAll('transactions');
+        const users = await DB.getAll('users');
+        const tbody = document.getElementById('tbody-transactions-preview');
+        if (!tbody) return;
+        tbody.innerHTML = '';
+        
+        const sorted = txs.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+        const filtered = sorted.filter(t => {
+          const user = users.find(u => u.id === t.userId) || { name: "Automated Routine" };
+          return user.name.toLowerCase().includes(query.toLowerCase()) ||
+                 t.type.toLowerCase().includes(query.toLowerCase()) ||
+                 t.amount.toString().includes(query) ||
+                 (t.description && t.description.toLowerCase().includes(query.toLowerCase()));
+        }).slice(0, 7);
+
+        document.getElementById('label-tx-count').innerText = `${filtered.length} TXS`;
+
+        if (filtered.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="4" class="empty-state-row">No live transactions match "${query}"</td></tr>`;
+          return;
+        }
+
+        filtered.forEach(t => {
+          const user = users.find(u => u.id === t.userId) || { name: "Automated Routine" };
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td style="font-weight: 500; color: var(--text-main);">${user.name}</td>
+            <td style="font-weight: 600; color: ${t.type === 'credit' ? '#10B981' : '#F43F5E'};">${t.type === 'credit' ? '+' : '-'}$${t.amount.toFixed(2)}</td>
+            <td><span style="font-size: 0.72rem; padding: 2px 6px; border-radius: 4px; background: var(--card-inner-bg); text-transform: uppercase;">${t.type}</span></td>
+            <td style="font-size: 0.8rem;">${new Date(t.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+      }
+
+      async function renderInsights(query = currentSearchQuery) {
+        const insights = await DB.getAll('insights');
+        const container = document.getElementById('list-insights');
+        if (!container) return;
+        container.innerHTML = '';
+        
+        const filtered = insights.reverse().filter(ins =>
+          ins.message.toLowerCase().includes(query.toLowerCase()) ||
+          ins.severity.toLowerCase().includes(query.toLowerCase())
+        );
+
+        if (filtered.length === 0) {
+          container.innerHTML = `<div class="empty-state-row">No telemetry alerts match "${query}"</div>`;
+          return;
+        }
+
+        filtered.forEach(ins => {
+          const div = document.createElement('div');
+          div.className = `insight-card ${ins.severity}`;
+          div.innerHTML = `
+            <div class="insight-text">${ins.message}</div>
+            <button class="insight-dismiss" onclick="UI.dismissInsight(${ins.id}, this)">DISMISS</button>
+          `;
+          container.appendChild(div);
+        });
+      }
+
+      function renderAudit(query = currentSearchQuery) {
+        const tbody = document.getElementById('tbody-audit');
+        if (!tbody) return;
+        tbody.innerHTML = '';
+        
+        const filtered = auditLogs.filter(log =>
+          log.type.toLowerCase().includes(query.toLowerCase()) ||
+          log.desc.toLowerCase().includes(query.toLowerCase()) ||
+          log.source.toLowerCase().includes(query.toLowerCase())
+        ).slice(0, 15);
+
+        if (filtered.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="4" class="empty-state-row">No audit logs match "${query}"</td></tr>`;
+          return;
+        }
+
+        filtered.forEach(log => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td style="font-family: 'JetBrains Mono', monospace; font-weight: 600; color: var(--accent-cyan); font-size: 0.78rem;">${log.type}</td>
+            <td style="color: var(--text-main);">${log.desc}</td>
+            <td style="color: var(--text-subtle);">${log.source}</td>
+            <td style="font-size: 0.8rem;">${log.time}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+      }
+
+      function logEvent(type, desc, source = "Client Telemetry") {
+        auditLogs.unshift({ type, desc, source, time: new Date().toLocaleTimeString() });
+        renderAudit(currentSearchQuery);
+      }
+
+      function clearAuditLog() {
+        auditLogs = [];
+        renderAudit(currentSearchQuery);
+        showToast("System audit stream cleared.");
+      }
+
+      function sortUsers(key) {
+        sortAsc = !sortAsc;
+        currentUsers.sort((a, b) => {
+          if (a[key] < b[key]) return sortAsc ? -1 : 1;
+          if (a[key] > b[key]) return sortAsc ? 1 : -1;
+          return 0;
+        });
+        renderUsers(currentSearchQuery);
+      }
+
+      async function editUser(id) {
+        const users = await DB.getAll('users');
+        const u = users.find(x => x.id === id);
+        if (!u) return;
+        document.getElementById('input-user-id').value = u.id;
+        document.getElementById('input-user-name').value = u.name;
+        document.getElementById('input-user-email').value = u.email;
+        document.getElementById('select-user-role').value = u.role;
+        document.getElementById('select-user-status').value = u.status;
+        document.getElementById('modal-user-title').innerText = "Edit Identity Record";
+        document.getElementById('modal-user').classList.add('open');
+      }
+
+      async function deleteUser(id) {
+        if (confirm("Are you sure you want to permanently revoke and delete this identity?")) {
+          await DB.remove('users', id);
+          await renderUsers(currentSearchQuery);
+          logEvent("IDENTITY_REVOKED", `User record ID #${id} purged from IndexedDB`);
+          showToast("Identity record permanently deleted.");
+        }
+      }
+
+      async function dismissInsight(id, btnEl) {
+        const parent = btnEl.closest('.insight-card');
+        parent.style.opacity = '0';
+        parent.style.transform = 'scale(0.95)';
+        setTimeout(async () => {
+          await DB.remove('insights', id);
+          await renderInsights(currentSearchQuery);
+          logEvent("INSIGHT_DISMISSED", `Telemetry alert ID #${id} acknowledged`);
+        }, 250);
+      }
+
+      function showToast(message) {
+        const container = document.getElementById('toast-stack');
+        const toast = document.createElement('div');
+        toast.className = 'toast-item';
+        toast.innerHTML = `<span style="color: var(--accent-cyan); font-weight: bold;">✓</span> <span>${message}</span>`;
+        container.appendChild(toast);
+        setTimeout(() => {
+          toast.style.opacity = '0';
+          toast.style.transform = 'translateX(20px)';
+          setTimeout(() => toast.remove(), 300);
+        }, 3500);
+      }
+
+      function countUp(id, nextVal) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        const start = parseInt(el.innerText, 10);
+        const diff = nextVal - start;
+        let step = 0;
+        const duration = 15;
+        const timer = setInterval(() => {
+          step++;
+          el.innerText = Math.round(start + (diff * (step / duration)));
+          if (step >= duration) {
+            el.innerText = nextVal;
+            clearInterval(timer);
+          }
+        }, 20);
+      }
+
+      return { initNav, closeMobileSidebar, refreshAll, handleGlobalSearch, renderUsers, renderTransactions, renderInsights, sortUsers, editUser, deleteUser, dismissInsight, showToast, countUp, logEvent, clearAuditLog };
+    })();
+
+    /* =========================================================================
+       6. SIMULATION & TELEMETRY ENGINE
+       ========================================================================= */
+    const Simulation = (() => {
+      let timer = null;
+      let isRunning = true;
+      const aiMessages = [
+        "Spike detected in API ingress traffic from us-east-1 region (+18%).",
+        "Auto-scaling group alpha provisioned 2 additional edge nodes.",
+        "Revenue conversion rate optimization model suggests a +3.4% uplift."
+      ];
+
+      function start(interval = 3) {
+        if (timer) clearInterval(timer);
+        timer = setInterval(async () => {
+          if (!isRunning) return;
+          Charts.pushRevenueValue();
+          Charts.renderMiniChart();
+          const newCount = Math.floor(Math.random() * 60) + 180;
+          UI.countUp('kpi-users', newCount);
+
+          if (Math.random() > 0.45) {
+            await DB.add('transactions', {
+              userId: Math.floor(Math.random() * 3) + 1,
+              amount: parseFloat((Math.random() * 900 + 40).toFixed(2)),
+              type: Math.random() > 0.3 ? 'credit' : 'debit',
+              description: `Real-time cluster settlement #${Math.floor(Math.random() * 9000 + 1000)}`,
+              timestamp: new Date().toISOString()
+            });
+            await UI.renderTransactions();
+            UI.logEvent("TX_SETTLEMENT", "Automated ledger transaction logged");
+          }
+        }, interval * 1000);
+      }
+
+      async function triggerInsight() {
+        const msg = aiMessages[Math.floor(Math.random() * aiMessages.length)];
+        await DB.add('insights', { message: msg, severity: Math.random() > 0.4 ? 'positive' : 'info', read: false });
+        await UI.renderInsights();
+        UI.logEvent("AI_INFERENCE", "Edge telemetry alert generated");
+        UI.showToast("New AI Telemetry Alert");
+      }
+
+      function toggle(state) { isRunning = state; }
+      return { start, toggle, triggerInsight };
+    })();
+
+    /* =========================================================================
+       7. BOOTSTRAPPER, MOBILE SIDEBAR & KEYBOARD SHORTCUTS
+       ========================================================================= */
+    window.addEventListener('DOMContentLoaded', async () => {
+      await DB.init();
+      Background.init();
+      UI.initNav();
+      await UI.refreshAll();
+
+      Charts.renderRevenueChart();
+      Charts.renderMiniChart();
+      Simulation.start(3);
+
+      const sidebar = document.getElementById('main-sidebar');
+      const overlay = document.getElementById('sidebar-overlay');
+      const toggleSidebarBtn = document.getElementById('btn-toggle-sidebar');
+      
+      toggleSidebarBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('open');
+        overlay.classList.toggle('open');
+      });
+      
+      overlay.addEventListener('click', () => {
+        UI.closeMobileSidebar();
+      });
+
+      const settings = await DB.getAll('settings');
+      const savedTheme = settings.find(s => s.key === 'theme');
+      const savedKey = settings.find(s => s.key === 'geminiKey');
+      if (savedKey && savedKey.value) {
+        document.getElementById('input-api-key').value = savedKey.value;
+      }
+      const themeCheckbox = document.getElementById('switch-theme-toggle');
+      if (savedTheme && savedTheme.value === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+        themeCheckbox.checked = true;
+        Charts.renderRevenueChart();
+        Charts.renderMiniChart();
+      }
+
+      const copilotBackdrop = document.getElementById('copilot-backdrop');
+      const openCopilot = () => copilotBackdrop.classList.add('open');
+      const closeCopilot = () => copilotBackdrop.classList.remove('open');
+
+      document.getElementById('btn-open-copilot').addEventListener('click', openCopilot);
+      document.getElementById('btn-close-copilot').addEventListener('click', closeCopilot);
+
+      window.addEventListener('keydown', (e) => {
+        if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+          e.preventDefault();
+          copilotBackdrop.classList.toggle('open');
+          if (copilotBackdrop.classList.contains('open')) {
+            document.getElementById('input-copilot').focus();
+          }
+        }
+      });
+
+      document.getElementById('btn-send-copilot').addEventListener('click', () => Copilot.ask());
+      document.getElementById('input-copilot').addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') Copilot.ask();
+      });
+
+      document.getElementById('btn-save-key').addEventListener('click', async () => {
+        const val = document.getElementById('input-api-key').value.trim();
+        await DB.put('settings', { key: 'geminiKey', value: val });
+        UI.showToast("API Key securely updated.");
+      });
+
+      const modalUser = document.getElementById('modal-user');
+      const openUserModal = () => {
+        document.getElementById('form-user').reset();
+        document.getElementById('input-user-id').value = '';
+        document.getElementById('modal-user-title').innerText = "Create Identity Record";
+        modalUser.classList.add('open');
+      };
+      document.getElementById('btn-trigger-add-user').addEventListener('click', openUserModal);
+      document.getElementById('btn-trigger-add-user-dir').addEventListener('click', openUserModal);
+      document.getElementById('btn-close-user-modal').addEventListener('click', () => modalUser.classList.remove('open'));
+      document.getElementById('btn-cancel-user-modal').addEventListener('click', () => modalUser.classList.remove('open'));
+
+      document.getElementById('form-user').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const idVal = document.getElementById('input-user-id').value;
+        const payload = {
+          name: document.getElementById('input-user-name').value,
+          email: document.getElementById('input-user-email').value,
+          role: document.getElementById('select-user-role').value,
+          status: document.getElementById('select-user-status').value,
+          lastLogin: new Date().toISOString()
+        };
+
+        if (idVal) {
+          payload.id = Number(idVal);
+          await DB.put('users', payload);
+          UI.logEvent("IDENTITY_UPDATED", `Identity ID #${idVal} modified`);
+          UI.showToast("Identity record updated successfully.");
+        } else {
+          await DB.add('users', payload);
+          UI.logEvent("IDENTITY_CREATED", `New account provisioned for ${payload.name}`);
+          UI.showToast("New identity provisioned in IndexedDB.");
+        }
+        modalUser.classList.remove('open');
+        await UI.renderUsers();
+      });
+
+      const modalSettings = document.getElementById('modal-settings');
+      document.getElementById('btn-open-settings').addEventListener('click', () => {
+        UI.closeMobileSidebar();
+        modalSettings.classList.add('open');
+      });
+      document.getElementById('btn-close-settings-modal').addEventListener('click', () => modalSettings.classList.remove('open'));
+
+      themeCheckbox.addEventListener('change', async (e) => {
+        const next = e.target.checked ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        await DB.put('settings', { key: 'theme', value: next });
+        Charts.renderRevenueChart();
+        Charts.renderMiniChart();
+        UI.logEvent("THEME_CHANGED", `UI theme toggled to ${next.toUpperCase()}`);
+        UI.showToast(`Interface switched to ${next.toUpperCase()} mode.`);
+      });
+
+      document.getElementById('slider-refresh-rate').addEventListener('input', (e) => {
+        const val = e.target.value;
+        document.getElementById('label-refresh-rate').innerText = `Every ${val} seconds`;
+        Simulation.start(Number(val));
+      });
+
+      document.getElementById('switch-sim-toggle').addEventListener('change', (e) => {
+        const isSimActive = e.target.checked;
+        Simulation.toggle(isSimActive);
+        document.getElementById('label-sim-status').innerText = isSimActive 
+          ? "Engine active — Streaming fake telemetry"
+          : "Engine paused — Telemetry stream suspended";
+        UI.showToast(`Live telemetry simulation ${isSimActive ? 'resumed' : 'suspended'}.`);
+      });
+
+      // UNIFIED GLOBAL SEARCH EVENT LISTENER
+      document.getElementById('input-global-search').addEventListener('input', (e) => {
+        UI.handleGlobalSearch(e.target.value);
+      });
+      
+      let resizeTimeout;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+          Charts.renderRevenueChart();
+          Charts.renderMiniChart();
+        }, 80);
+      });
+    });
+  </script>
+</body>
+</html>
